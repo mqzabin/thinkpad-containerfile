@@ -6,7 +6,7 @@ set -ouex pipefail
 
 # Kernel builds could be found here:
 # https://bodhi.fedoraproject.org/updates/?packages=kernel&page=1
-rpm-ostree override replace https://koji.fedoraproject.org/koji/buildinfo?buildID=2693823
+rpm-ostree override replace https://koji.fedoraproject.org/koji/buildinfo?buildID=2835432
 
 # Packages can be installed from any enabled yum repo on the image.
 # RPMfusion repos are available by default in ublue main images
