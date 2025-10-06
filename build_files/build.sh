@@ -2,30 +2,13 @@
 
 set -ouex pipefail
 
-### Install packages
 
-# Kernel builds could be found here:
-# https://bodhi.fedoraproject.org/updates/?packages=kernel&page=1
-# rpm-ostree override replace https://koji.fedoraproject.org/koji/buildinfo?buildID=2820362
-
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
-
-# this installs a package from fedora repos
-# dnf5 install -y tmux 
-
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
-
-# systemctl enable podman.socket
+####################################
+# Installing Firefox PWA connector #
+####################################
+# See:
+# - https://packagecloud.io/filips/FirefoxPWA
+# - https://addons.mozilla.org/pt-BR/firefox/addon/pwas-for-firefox/
 
 # Enable the repository
 sudo tee /etc/yum.repos.d/firefoxpwa.repo > /dev/null <<EOF
@@ -45,4 +28,19 @@ sudo dnf -q makecache -y --disablerepo="*" --enablerepo="firefoxpwa"
 
 # Install the package
 sudo dnf install -y firefoxpwa
+
+########################
+# Installing 1Password #
+########################
+# See:
+# - https://support.1password.com/install-linux/#fedora-or-red-hat-enterprise-linux
+
+# Add the key for the 1Password yum repository
+sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+
+# Add the 1Password yum repository:
+sudo sh -c 'echo -e "[1password]\nname=1Password Stable Channel\nbaseurl=https://downloads.1password.com/linux/rpm/stable/\$basearch\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=\"https://downloads.1password.com/linux/keys/1password.asc\"" > /etc/yum.repos.d/1password.repo'
+
+# Install 1Password:
+sudo dnf install 1password
 
