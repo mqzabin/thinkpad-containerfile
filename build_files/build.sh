@@ -44,5 +44,5 @@ EOF
 sudo dnf -q makecache -y --disablerepo="*" --enablerepo="firefoxpwa"
 
 # Install the package
-sudo dnf install firefoxpwa
+sudo dnf install -y firefoxpwa
 
